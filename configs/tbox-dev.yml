@@ -1,0 +1,26 @@
+server:
+  port: 9013
+spring:
+  application:
+    name: hpdc-tbox #指定服务名
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@192.168.5.204:1521:hywmsprd
+    username: hywms
+    password: hysmw
+    jpa:
+      database: oracle
+      show-sql: true
+  redis:
+    host: 192.168.5.208
+  rabbitmq:
+    host: 192.168.5.208
+jwt:
+  config:
+    key: hpdc
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9999/eureka/
+  instance:
+    prefer-ip-address: true

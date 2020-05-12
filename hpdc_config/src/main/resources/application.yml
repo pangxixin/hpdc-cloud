@@ -1,0 +1,21 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: hpdc-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/hpdc/hpdc-cloud.git
+          username: pangxixin
+          password: oracle
+          skip-ssl-validation: true
+          search-paths: /configs
+  rabbitmq:
+    host: 192.168.5.208
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

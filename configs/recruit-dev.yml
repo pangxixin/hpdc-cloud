@@ -1,0 +1,19 @@
+server: 
+  port: 9002
+spring: 
+  application:  
+    name: hpdc-recruit #指定服务名
+  datasource:
+    url: jdbc:mysql://192.168.5.208:3306/hpdc_recruit?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: root
+    password: oracle
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa: 
+    database: MySQL
+    show-sql: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.15.228:9999/eureka/
+  instance:
+    prefer-ip-address: true

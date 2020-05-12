@@ -1,0 +1,67 @@
+server:
+  port: 9012
+spring:
+  application:
+    name: hpdc-web
+  rabbitmq:
+    host: 192.168.5.208
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9999/eureka/
+  instance:
+    prefer-ip-address: true #返回ip地址而不是hostname
+# 开启熔断机制，超过六秒即开启熔断机制，网关内的时间排序：zuul的通信时间 > hystrix熔断时间 > retry重试时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+ribbon:
+  ConnectTimeout: 250 # 连接超时时间（ms），默认值为250ms
+  ReadTimeout: 2000 # 通信超时时间（ms），默认值为2000ms
+  OkToRetryOnAllOperations: true # 是否对所有操作都进行重试
+  MaxAutoRetriesNextServer: 2 # 对同一服务不同实例重试次数（同一服务下集群个数的重试次数）
+  MaxAutoRetries: 2 # 对同一实例重试的次数（单个集群节点服务重试的次数）
+zuul:
+  prefix: /api   # 访问网关路径的前缀（在映射路径的前面，一般用于区别开发的版本）
+  retryable: true
+  routes:
+    hpdc-article:
+      path: /article/**
+      serviceId: hpdc-article
+    hpdc-base:
+      path: /base/**
+      serviceId: hpdc-base
+    hpdc-friend:
+      path: /friend/**
+      serviceId: hpdc-friend
+    hpdc-gathering:
+      path: /gathering/**
+      serviceId: hpdc-gathering
+    hpdc-qa:
+      path: /qa/**
+      serviceId: hpdc-qa
+    hpdc-recruit:
+      path: /recruit/**
+      serviceId: hpdc-recruit
+    hpdc-search:
+      path: /search/**
+      serviceId: hpdc-search
+    hpdc-sms:
+      path: /sms/**
+      serviceId: hpdc-sms
+    hpdc-spit:
+      path: /spit/**
+      serviceId: hpdc-spit
+    hpdc-user:
+      path: /user/**
+      serviceId: hpdc-user
+    hpdc-test:
+      path: /test/**
+      serviceId: hpdc-test
+
+#此配置避免过滤Authorization敏感词汇不转发
+  sensitive-headers:

@@ -1,0 +1,26 @@
+server:
+  port: 9099
+spring:
+  application:
+    name: hpdc-gateway
+  rabbitmq:
+    host: 192.168.5.208
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #是否适用默认路由(通过gatewayUri:port/服务名/path直接访问服务接口)
+          lowerCaseServiceId: true #是否忽略服务名大小写
+      routes: #gateway配置多条路由规则时注意顺序问题,例如本例中路由谓词为Query的场景
+        - id: hpdc-base
+          uri: /base/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9999/eureka/
+  instance:
+    prefer-ip-address: true
+logging:
+  level:
+    # log 级别
+    org.springframework.cloud.gateway: debug

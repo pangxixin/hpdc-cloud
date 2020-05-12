@@ -1,0 +1,32 @@
+server:
+  #  port: 9011
+  #    HTTPS默认端口
+  port: 8443
+  #  HTTPS加密配置
+  ssl:
+    key-store: classpath:3549528hayaodc.pfx
+    key-store-password: obQOHOK2
+    key-store-type: pkcs12
+    key-alias: alias
+    enabled: true
+spring:
+  application:
+    name: hpdc-inventory #指定服务名
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@192.168.5.204:1521:hywmsprd
+    username: hywms
+    password: hysmw
+  jpa:
+    database: oracle
+    show-sql: true
+  redis:
+    host: 192.168.5.208
+  rabbitmq:
+    host: 192.168.5.208
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9999/eureka/
+  instance:
+    prefer-ip-address: true

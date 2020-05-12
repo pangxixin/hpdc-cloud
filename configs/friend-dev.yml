@@ -1,0 +1,22 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: hpdc-friend
+  datasource:
+    url: jdbc:mysql://192.168.5.208:3306/hpdc_friend?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: root
+    password: oracle
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: MySQL
+    show-sql: true
+jwt:
+  config:
+    key: hpdc
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.15.228:9999/eureka/
+  instance:
+    prefer-ip-address: true

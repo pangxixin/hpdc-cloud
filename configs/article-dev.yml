@@ -1,0 +1,23 @@
+server: 
+  port: 9004
+spring: 
+  application:  
+    name: hpdc-article #指定服务名
+  datasource:  
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.5.208:3306/hpdc_article?characterEncoding=UTF8
+    username: root
+    password: oracle
+  jpa: 
+    database: MySQL
+    show-sql: true
+  redis:
+    host: 192.168.5.208
+  rabbitmq:
+    host: 192.168.5.208
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9999/eureka/
+  instance:
+    prefer-ip-address: true

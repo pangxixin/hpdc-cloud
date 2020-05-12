@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hpdc.iface.mapper.IfaceMapper">
+
+    <!--根据sku和批次号获取udt8 Tag号-->
+    <select id="getUdt8" parameterType="string" resultType="string">
+        select case when min (inv.tag_id) is not null then min (inv.tag_id) else 'notag' end udt8
+        from inventory@dblink_wmsprd inv
+        where inv.sku_id=#{skuId}
+        and inv.batch_id=#{batchId}
+        and inv.zone_1 not in('SS','MA','RS','QC','QRW','ZML','YY','KITTING','REPACK')
+        and inv.receipt_dstamp=(select min(i.receipt_dstamp)
+        from inventory@dblink_wmsprd i
+        where i.sku_id=#{skuId}
+        and i.batch_id=#{batchId}
+        and i.zone_1 not in('SS','MA','RS','QC','QRW','ZML','YY','KITTING','REPACK'))
+    </select>
+
+    <!--根据客户号查询对应配送方式for联邦-->
+    <select id="getCarrier" parameterType="string" resultType="string">
+        select case
+                   when ad.user_def_type_4 is null then '三方自提'
+                   else ad.user_def_type_4
+                end
+                   user_def_type_4
+        from address@dblink_wmsprd ad
+        where address_id = #{addressId}
+    </select>
+
+    <!--保存集团营销订单头-->
+    <insert id="insertJtyxInterfaceOrderHeader" parameterType="com.hpdc.iface.pojo.InterfaceOrderHeader">
+        <selectKey resultType="int" order="BEFORE" keyProperty="key">
+            select if_oh_pk_seq.nextval@dblink_wmstst key from dual
+        </selectKey>
+        insert into interface_order_header@dblink_wmstst
+        (KEY, ORDER_ID,CUSTOMER_ID,CLIENT_ID,OWNER_ID,FROM_SITE_ID,CARRIER_ID,ORDER_TYPE,SERVICE_LEVEL,STATUS,USER_DEF_TYPE_6,MERGE_ACTION,MERGE_STATUS)
+        values
+        (#{key}, #{orderId}, #{customerId},'HYY','JTYX','HPDC','三方自提','XS','0','Released','XS','A','Pending')
+    </insert>
+
+    <!--保存集团营销订单行-->
+    <insert id="insertJtyxInterfaceOrderLine" parameterType="com.hpdc.iface.pojo.InterfaceOrderLine">
+        <selectKey resultType="int" order="BEFORE" keyProperty="key">
+            select if_ol_pk_seq.nextval@dblink_wmstst key from dual
+        </selectKey>
+        insert into interface_order_line@dblink_wmstst
+        (KEY,ORDER_ID,USER_DEF_NOTE_2,LINE_ID,SKU_ID,USER_DEF_TYPE_8,QTY_ORDERED,CLIENT_ID,OWNER_ID,USER_DEF_TYPE_6,MERGE_ACTION,MERGE_STATUS,CONDITION_ID)
+        values
+        (#{key}, #{orderId}, #{udn2}, #{lineId}, #{skuId}, #{udt8}, #{qtyOrdered}, 'HYY', 'JTYX', 'XS', 'A', 'Pending', 'GOOD')
+    </insert>
+
+    <!--保存珠海联邦订单头-->
+    <insert id="insertZhlbInterfaceOrderHeader" parameterType="com.hpdc.iface.pojo.InterfaceOrderHeader">
+        <selectKey resultType="int" order="BEFORE" keyProperty="key">
+            select if_oh_pk_seq.nextval@dblink_wmstst key from dual
+        </selectKey>
+        insert into interface_order_header@dblink_wmstst
+        (KEY, ORDER_ID,CUSTOMER_ID,CLIENT_ID,OWNER_ID,FROM_SITE_ID,CARRIER_ID,ORDER_TYPE,SERVICE_LEVEL,STATUS,USER_DEF_TYPE_6,MERGE_ACTION,MERGE_STATUS)
+        values
+        (#{key}, #{orderId}, #{customerId},'HYY',#{ownerId},'HPDC',#{carrierId},'SF','0','Released','SF','A','Pending')
+    </insert>
+
+    <!--保存珠海联邦订单行-->
+    <insert id="insertZhlbInterfaceOrderLine" parameterType="com.hpdc.iface.pojo.InterfaceOrderLine">
+        <selectKey resultType="int" order="BEFORE" keyProperty="key">
+            select if_ol_pk_seq.nextval@dblink_wmstst key from dual
+        </selectKey>
+        insert into interface_order_line@dblink_wmstst
+        (KEY,ORDER_ID,USER_DEF_NOTE_2,LINE_ID,SKU_ID,USER_DEF_TYPE_8,QTY_ORDERED,CLIENT_ID,OWNER_ID,USER_DEF_TYPE_6,MERGE_ACTION,MERGE_STATUS,CONDITION_ID)
+        values
+        (#{key}, #{orderId}, #{udn2}, #{lineId}, #{skuId}, #{udt8}, #{qtyOrdered}, 'HYY', #{ownerId}, 'SF', 'A', 'Pending', 'GOOD')
+    </insert>
+
+    <!--保存珠海联邦预通知单头-->
+    <insert id="insertZhlbInterfacePreAdviceHeader" parameterType="com.hpdc.iface.pojo.InterfacePreAdviceHeader">
+        <selectKey resultType="int" order="BEFORE" keyProperty="key">
+            select if_pah_pk_seq.nextval@dblink_wmstst key from dual
+        </selectKey>
+        insert into interface_pre_advice_header@dblink_wmstst
+        (KEY,PRE_ADVICE_ID,CLIENT_ID,OWNER_ID,SITE_ID,PRE_ADVICE_TYPE,USER_DEF_TYPE_6,DUE_DSTAMP,STATUS,MERGE_ACTION,MERGE_STATUS,USER_DEF_NOTE_2)
+        values
+        (#{key}, #{preAdviceId}, 'HYY', #{ownerId}, 'HPDC', 'CG', 'CG', sysdate, 'Released', 'A', 'Pending', 'CG')
+    </insert>
+
+    <!--保存珠海联邦预通知单行-->
+    <insert id="insertZhlbInterfacePreAdviceLine" parameterType="com.hpdc.iface.pojo.InterfacePreAdviceLine">
+        <selectKey resultType="int" order="BEFORE" keyProperty="key">
+            select if_pal_pk_seq.nextval@dblink_wmstst key from dual
+        </selectKey>
+        insert into interface_pre_advice_line@dblink_wmstst
+        (KEY,PRE_ADVICE_ID,SKU_ID,BATCH_ID,QTY_DUE,CLIENT_ID,OWNER_ID,CONDITION_ID,USER_DEF_NOTE_1,MERGE_ACTION,MERGE_STATUS,USER_DEF_NOTE_2,USER_DEF_TYPE_6,LINE_ID)
+        values
+        (#{key},#{preAdviceId},#{skuId},#{batchId},#{qtyDue},'HYY',#{ownerId},'GOOD',#{udn1},'A','Pending','CG','CG','1')
+    </insert>
+
+</mapper>

@@ -1,0 +1,63 @@
+微服架构开发流程：
+一、搭建微服环境
+1、服务器上安装docker、jenkins、rancher
+2、用docker下载gogs、registry、mysql、redis、mongo、rabbitmq、grafana等镜像
+3、用rancher启动管理各种docker服务
+二、代码开发
+1、设置gitee.com作为公有云代码仓库，gogs作为私有代码库
+2、用Idea开发
+3、测试方法论
+三、部署运维
+1、运维人员直接操作jenkins、rancher
+
+
+
+手动用maven插件打包->构建->推送 微服镜像到私有仓库 mvn clean package docker:build -DpushImage
+持续集成方式 开发源代码上传到gogs私有代码库或者gitee上。然后用jenkins自动构建
+
+代码仓库(gitee):  https://gitee.com/hpdc/hpdc-cloud.git
+代码仓库(本地)：	http://192.168.5.208:3000/hpdc/hpdc_cloud.git
+Jenkins:	http://192.168.5.208:8888   (本地安装到服务器主机上) (持续集成使用源代码构建docker镜像)
+            配置文件在/etc/sysconfig/jenkins; 启动systemctl start jenkins
+gitee:		https://gitee.com/hpdc/hpdc-cloud
+修改配置后向configServer手动发送条消息：http://127.0.0.1:10000/actuator/bus-refresh(POST)
+=========================================== docker项目 ==========================================================
+hpdc_eureka:	http://192.168.5.208:9999
+                (docker run -di --name=hpdc_eureka -p 9999:9999 192.168.5.208:5000/hpdc_eureka:1.0)
+hpdc_manager:	http://192.168.5.208:9011	后端入口
+hpdc_web:		http://192.168.5.208:9012	前端入口
+hpdc_base:		http://192.168.5.208:9001	列表模块
+                (docker run -di --name=hpdc_base -p 9001:9001 192.168.5.208:5000/hpdc_base:1.0)
+hpdc_recruit:	http://192.168.5.208:9002	
+hpdc_qa:		http://192.168.5.208:9003	问答模块
+hpdc_article:	http://192.168.5.208:9004	
+hpdc_gathering:	http://192.168.5.208:9005	
+hpdc_spit:		http://192.168.5.208:9006	吐槽模块
+hpdc_search:	http://192.168.5.208:9007	搜索模块
+hpdc_user:		http://192.168.5.208:9008	用户模块
+hpdc_sms:		http://192.168.5.208:9009	短信模块
+hpdc_friend:	http://192.168.5.208:9010	交友模块
+
+=========================================== docker服务 ===========================================================
+rancher:        http://192.168.5.208:9090   微服务管理监控
+                (docker run -di --name=rancher --restart=always -p 9090:8080 rancher/server)
+influxdb:       http://192.168.5.208:8083   时序数据库
+                (docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --publish=8090:8080 --detach=true --link influxsrv:influxsrv --name=cadvisor google/cadvisor -storage_driver=influxdb -storage_driver_db=db_cadvisor -storage_driver_host=influxsrv:8086)
+cadvisor:       http://192.168.5.208:8090   性能数据采集器
+                (docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --publish=8090:8080 --detach=true --link influxsrv:influxsrv --name=cadvisor google/cadvisor -storage_driver=influxdb -storage_driver_db=db_cadvisor -storage_driver_host=influxsrv:8086)
+grafana:        http://192.168.5.208:8090   性能数据监控器
+                (docker run ‐d ‐p 3001:3000 -e INFLUXDB_HOST=influxsrv ‐e INFLUXDB_PORT=8086 ‐e INFLUXDB_NAME=cadvisor ‐e INFLUXDB_USER=cadvisor ‐e INFLUXDB_PASS=cadvisor ‐‐link influxsrv:influxsrv ‐‐name grafana grafana/grafana)
+hpdc_gogs:      http://192.168.5.208:3000   私有git代码库
+                (docker run -di --name=hpdc_gogs -p 10022:22 -p 3000:3000 -v /data/gogs:/data gogs/gogs)
+hpdc_registry:  http://192.168.5.208:5000   私有docker容器库
+                (docker run -di -p 5000:5000 -v /data/docker-registry:/var/lib/registry -v /data/docker-registry/config.yml:/etc/docker/registry/config.yml --name=hpdc_registry registry)
+hpdc_mysql:     http://192.168.5.208:3306   mysql数据库
+                (docker run -di --name=hpdc_mysql -p 3306:3306 -v /data/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=oracle centos/mysql-57-centos7)
+hpdc_redis:     http://192.168.5.208:6379   redis数据库
+                (docker run -di --name=hpdc_redis -p 6379:6379 redis)
+hpdc_mongo:     http://192.168.5.208:27017   mongo数据库
+                (docker run -di --name=hpdc_mongo -p 27017:27017 mongo)
+hpdc_rabbitmq:  http://192.168.5.208:4369,5671,5672,15671,15672   rabbitmq消息队列
+                (docker run -di --name=hpdc_rabbitmq -p 5671:5671 -p 5672:5672 -p 4369:4369 -p 15671:15671 -p 15672:15672 -p 25682:25672 rabbitmq:management）
+hpdc_es:        http://192.168.5.208:9200,9300   搜索引擎
+                (docker run -di --name=hpdc_es -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:6.4.3)

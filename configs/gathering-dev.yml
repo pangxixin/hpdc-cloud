@@ -1,0 +1,19 @@
+server: 
+  port: 9005
+spring: 
+  application:  
+    name: hpdc-gathering #指定服务名
+  datasource:  
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.5.208:3306/hpdc_gathering?characterEncoding=UTF8
+    username: root
+    password: oracle
+  jpa: 
+    database: MySQL
+    show-sql: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.15.228:9999/eureka/
+  instance:
+    prefer-ip-address: true

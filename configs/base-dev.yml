@@ -1,0 +1,21 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: hpdc-base
+  datasource:
+    url: jdbc:mysql://192.168.5.208:3306/hpdc_base?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: oracle
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: MySQL
+    show-sql: true
+  rabbitmq:
+    host: 192.168.5.208
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.5.208:9999/eureka/
+  instance:
+    prefer-ip-address: true
