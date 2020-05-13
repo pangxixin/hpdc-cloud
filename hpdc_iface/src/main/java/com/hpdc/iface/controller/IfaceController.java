@@ -17,38 +17,38 @@ public class IfaceController {
     private IfaceService ifaceService;
 
     // 获取联邦SKU数据
-    @GetMapping(value = "/zhlb/skuData")
+    @GetMapping(value = "/zhlb/skudata")
     public Result getZhlbSkuData() {
         return new Result(true, StatusCode.OK, "查询成功", ifaceService.getZhlbSkuData());
     }
 
     // 获取联邦客户数据
-    @GetMapping(value = "/zhlb/khData")
+    @GetMapping(value = "/zhlb/khdata")
     public Result getZhlbKhData() {
         return new Result(true, StatusCode.OK, "查询成功", ifaceService.getZhlbKhData());
     }
 
     // 获取联邦客户数据
-    @GetMapping(value = "/zhlb/rkData")
+    @GetMapping(value = "/zhlb/rkdata")
     public Result getZhlbRkData() {
         return new Result(true, StatusCode.OK, "查询成功", ifaceService.getZhlbRkData());
     }
 
     // 获取联邦客户数据
-    @GetMapping(value = "/zhlb/ckData")
+    @GetMapping(value = "/zhlb/ckdata")
     public Result getZhlbCkData() {
         return new Result(true, StatusCode.OK, "查询成功", ifaceService.getZhlbCkData());
     }
 
     // 将出库数据插入到数据库中
-    @PostMapping(value = "/zhlb/ckData")
+    @PostMapping(value = "/zhlb/ckdata")
     public Result importZhlbCkData() {
         ifaceService.importZhlbCkdToDB();
         return new Result(true, StatusCode.OK, "出库单插入成功");
     }
 
     // 将入库数据插入到数据库中
-    @PostMapping(value = "/zhlb/rkData")
+    @PostMapping(value = "/zhlb/rkdata")
     public Result importZhlbRkData() {
         ifaceService.importZhlbRkdToDB();
         return new Result(true, StatusCode.OK, "入库单插入成功");
