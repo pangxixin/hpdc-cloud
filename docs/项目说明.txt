@@ -13,7 +13,7 @@
 
 
 手动用maven插件打包->构建->推送 微服镜像到私有仓库 mvn clean package docker:build -DpushImage
-持续集成方式 开发源代码上传到gogs私有代码库或者gitee上。然后用jenkins自动构建
+持续集成方式 开发源代码上传到gogs私有代码库或者gitee上。然后用jenkins自动构建微服镜像文件
 
 代码仓库(gitee):  https://gitee.com/hpdc/hpdc-cloud.git
 代码仓库(本地)：	http://192.168.5.208:3000/hpdc/hpdc_cloud.git
