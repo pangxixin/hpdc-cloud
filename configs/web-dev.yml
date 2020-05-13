@@ -1,5 +1,5 @@
 server:
-  port: 9012
+  port: 31001
 spring:
   application:
     name: hpdc-web
@@ -8,7 +8,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:9999/eureka/
+      defaultZone: http://192.168.5.208:31999/eureka/
   instance:
     prefer-ip-address: true #返回ip地址而不是hostname
 # 开启熔断机制，超过六秒即开启熔断机制，网关内的时间排序：zuul的通信时间 > hystrix熔断时间 > retry重试时间

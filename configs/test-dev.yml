@@ -1,5 +1,5 @@
 server: 
-  port: 9991
+  port: 31998
 spring:
   application:
     name: hpdc-test

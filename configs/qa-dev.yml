@@ -1,5 +1,5 @@
 server: 
-  port: 9003
+  port: 31006
 spring: 
   application:  
     name: hpdc-qa #指定服务名

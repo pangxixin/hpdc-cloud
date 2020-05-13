@@ -1,5 +1,5 @@
 server:
-    port: 9012
+    port: 31012
   #    HTTPS默认端口
 #  port: 8443
   #  HTTPS加密配置
@@ -27,6 +27,6 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:9999/eureka/
+      defaultZone: http://192.168.5.2081:31999/eureka/
   instance:
     prefer-ip-address: true

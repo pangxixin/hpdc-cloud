@@ -1,5 +1,5 @@
 server:
-  port: 9099
+  port: 31099
 spring:
   application:
     name: hpdc-gateway

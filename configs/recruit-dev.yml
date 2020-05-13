@@ -1,5 +1,5 @@
 server: 
-  port: 9002
+  port: 31007
 spring: 
   application:  
     name: hpdc-recruit #指定服务名

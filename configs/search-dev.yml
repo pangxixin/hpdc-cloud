@@ -1,5 +1,5 @@
 server:
-  port: 9007
+  port: 31008
 spring:
   application:
     name: hpdc-search

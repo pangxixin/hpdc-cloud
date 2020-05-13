@@ -22,21 +22,20 @@ Jenkins:	http://192.168.5.208:8888   (本地安装到服务器主机上) (持续
 gitee:		https://gitee.com/hpdc/hpdc-cloud
 修改配置后向configServer手动发送条消息：http://127.0.0.1:10000/actuator/bus-refresh(POST)
 =========================================== docker项目 ==========================================================
-hpdc_eureka:	http://192.168.5.208:9999
+hpdc_eureka:	http://192.168.5.208:31999
                 (docker run -di --name=hpdc_eureka -p 9999:9999 192.168.5.208:5000/hpdc_eureka:1.0)
-hpdc_manager:	http://192.168.5.208:9011	后端入口
-hpdc_web:		http://192.168.5.208:9012	前端入口
-hpdc_base:		http://192.168.5.208:9001	列表模块
-                (docker run -di --name=hpdc_base -p 9001:9001 192.168.5.208:5000/hpdc_base:1.0)
-hpdc_recruit:	http://192.168.5.208:9002	
-hpdc_qa:		http://192.168.5.208:9003	问答模块
-hpdc_article:	http://192.168.5.208:9004	
-hpdc_gathering:	http://192.168.5.208:9005	
-hpdc_spit:		http://192.168.5.208:9006	吐槽模块
-hpdc_search:	http://192.168.5.208:9007	搜索模块
-hpdc_user:		http://192.168.5.208:9008	用户模块
-hpdc_sms:		http://192.168.5.208:9009	短信模块
-hpdc_friend:	http://192.168.5.208:9010	交友模块
+hpdc_manager:	http://192.168.5.208:31001	后端入口
+hpdc_web:		http://192.168.5.208:31002	前端入口
+hpdc_base:		http://192.168.5.208:31003	列表模块
+hpdc_recruit:	http://192.168.5.208:31004
+hpdc_qa:		http://192.168.5.208:31005	问答模块
+hpdc_article:	http://192.168.5.208:31006
+hpdc_gathering:	http://192.168.5.208:31007
+hpdc_spit:		http://192.168.5.208:31008	吐槽模块
+hpdc_search:	http://192.168.5.208:31009	搜索模块
+hpdc_user:		http://192.168.5.208:31010	用户模块
+hpdc_sms:		http://192.168.5.208:31011	短信模块
+hpdc_friend:	http://192.168.5.208:31012	交友模块
 
 =========================================== docker服务 ===========================================================
 rancher:        http://192.168.5.208:9090   微服务管理监控

@@ -1,5 +1,5 @@
 server:
-  port: 9013
+  port: 31013
 spring:
   application:
     name: hpdc-tbox #指定服务名
@@ -21,6 +21,6 @@ jwt:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:9999/eureka/
+      defaultZone: http://192.168.5.208:31999/eureka/
   instance:
     prefer-ip-address: true
