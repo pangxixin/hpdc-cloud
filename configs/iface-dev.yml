@@ -1,5 +1,5 @@
 server:
-    port: 31012
+    port: 31015
   #    HTTPS默认端口
 #  port: 8443
   #  HTTPS加密配置
