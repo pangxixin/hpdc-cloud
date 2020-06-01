@@ -1,6 +1,6 @@
 微服架构开发流程：
 一、搭建微服环境
-1、服务器上安装docker、jenkins、rancher
+1、服务器上安装docker、jenkins、rancher(https://192.168.5.208:8443 admin)
 2、用docker下载gogs、registry、mysql、redis、mongo、rabbitmq、grafana等镜像
 3、用rancher启动管理各种docker服务
 二、代码开发

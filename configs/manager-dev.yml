@@ -11,10 +11,12 @@ jwt:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:9999/eureka/
+      defaultZone: http://192.168.5.208:31999/eureka/
   instance:
     prefer-ip-address: true
 zuul:
+  prefix: /api   # 访问网关路径的前缀（在映射路径的前面，一般用于区别开发的版本）
+  retryable: true
   routes:
     hpdc-article:
       path: /article/**
@@ -46,3 +48,6 @@ zuul:
     hpdc-user:
       path: /user/**
       serviceId: hpdc-user
+    hpdc-iface:
+      path: /iface/**
+      serviceId: hpdc-iface
