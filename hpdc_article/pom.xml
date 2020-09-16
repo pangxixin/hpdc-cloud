@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.hpdc</groupId>
-        <artifactId>hpdc_cloud</artifactId>
+        <artifactId>hpdc-cloud</artifactId>
         <version>1.0</version>
     </parent>
     <artifactId>hpdc_article</artifactId>

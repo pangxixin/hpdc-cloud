@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.hpdc</groupId>
-        <artifactId>hpdc_cloud</artifactId>
+        <artifactId>hpdc-cloud</artifactId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -27,14 +27,9 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
-        </dependency>
-        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.68</version>
+            <version>1.2.73</version>
         </dependency>
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -46,11 +41,16 @@
             <artifactId>javase</artifactId>
             <version>3.4.0</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>29.0-jre</version>
+        </dependency>
+        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.1.0</version>
-        </dependency>-->
+            <version>5.4.0</version>
+        </dependency>
     </dependencies>
 
 </project>

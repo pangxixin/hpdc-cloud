@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hpdc</groupId>
-    <artifactId>hpdc_cloud</artifactId>
+    <artifactId>hpdc-cloud</artifactId>
     <version>1.0</version>
     <modules>
         <module>hpdc_common</module>
@@ -33,7 +33,7 @@
 
     <packaging>pom</packaging>
 
-    <name>hpdc_cloud</name>
+    <name>hpdc-cloud</name>
     <description>哈药物流hpdcweb</description>
 
     <properties>
@@ -45,7 +45,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.13.RELEASE</version>
+        <version>2.2.9.RELEASE</version>
         <relativePath/>
     </parent>
 
